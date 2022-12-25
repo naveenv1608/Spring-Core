@@ -1,5 +1,7 @@
 package com.tcs.test;
 
+import org.springframework.beans.factory.support.DefaultListableBeanFactory;
+import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.beans.factory.xml.XmlBeanFactory;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
@@ -14,7 +16,7 @@ public class ConstructorTest {
 		ClassPathResource cpr=new ClassPathResource("com/tcs/cfg/applicationContext.xml");
 
         //Create the IOC container
-        XmlBeanFactory factory=new XmlBeanFactory(cpr);
+       // XmlBeanFactory factory=new XmlBeanFactory(cpr);
         
 		/*//get bean
 		Object obj=factory.getBean("wmg");
@@ -24,17 +26,26 @@ public class ConstructorTest {
 		WishMessageGenerator wish=(WishMessageGenerator)obj;*/
         
       //get bean
-        WishMessageGenerator obj=factory.getBean("wmg",WishMessageGenerator.class);
-        
+       // WishMessageGenerator obj=factory.getBean("wmg",WishMessageGenerator.class);
+		  //No need of typecasting
+       // String result=obj.generateMessage("Naveen");
         //Type casting 
         
       //  WishMessageGenerator wish=(WishMessageGenerator)obj;
         //Calling generate message function
+		// System.out.println(result);
         
-        //No need of typecasting
+        DefaultListableBeanFactory factory=new DefaultListableBeanFactory();
+        
+        XmlBeanDefinitionReader reader=new XmlBeanDefinitionReader(factory);
+        reader.loadBeanDefinitions("com/tcs/cfg/applicationContext.xml");
+        
+      //get bean
+        WishMessageGenerator obj=factory.getBean("wmg",WishMessageGenerator.class);
+ 		  //No need of typecasting
         String result=obj.generateMessage("Naveen");
         
-        System.out.println(result);
+       System.out.println(result);
 	}
 
 }
