@@ -16,14 +16,23 @@ public class ConstructorTest {
         //Create the IOC container
         XmlBeanFactory factory=new XmlBeanFactory(cpr);
         
-        //get bean
-        Object obj=factory.getBean("wmg");
+		/*//get bean
+		Object obj=factory.getBean("wmg");
+		
+		//Type casting 
+		
+		WishMessageGenerator wish=(WishMessageGenerator)obj;*/
+        
+      //get bean
+        WishMessageGenerator obj=factory.getBean("wmg",WishMessageGenerator.class);
         
         //Type casting 
         
-        WishMessageGenerator wish=(WishMessageGenerator)obj;
+      //  WishMessageGenerator wish=(WishMessageGenerator)obj;
         //Calling generate message function
-        String result=wish.generateMessage("Naveen");
+        
+        //No need of typecasting
+        String result=obj.generateMessage("Naveen");
         
         System.out.println(result);
 	}
